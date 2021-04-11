@@ -1,13 +1,34 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.Loader .Loader__spinner {
+  width: 5rem;
+  height: 5rem;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.Profile-list .Profile-list__profiles,
+.Chosen-profiles .Chosen-profiles__profiles {
+  height: calc(100vh - 3rem - 52px);
+  overflow-y: auto;
+}
+
+.Chosen-profiles .Chosen-profiles__avatar {
+  height: 70px;
+  width: 70px;
+}
+
+.Chosen-profiles .Chosen-profiles__delete-img {
+  width: 30px;
+  cursor: pointer;
+}
+
+.Searching input {
+  height: 51px;
+}
+
+.Chosen-profiles .list-group-item:hover,
+.Profile-list .list-group-item:hover {
+  cursor: grab;
+  user-select: none;
+}
+
+.highlight {
+  background-color: red;
 }
