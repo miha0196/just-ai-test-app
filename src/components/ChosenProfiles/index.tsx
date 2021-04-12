@@ -4,32 +4,43 @@ type ChosenProfilesProps = {
   onDragStart: (event: React.DragEvent<HTMLDivElement>) => void;
   onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
   onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
+  onDragEnd: () => void;
   chosenProfiles: Profile[];
   onDeleteProfile: (uuid: string) => void;
+  isHighlightedList: boolean;
 };
 
 export const ChosenProfiles: React.FC<ChosenProfilesProps> = ({
   onDragStart,
   onDragOver,
   onDrop,
+  onDragEnd,
   chosenProfiles,
   onDeleteProfile,
+  isHighlightedList,
 }) => (
   <div
     className="Chosen-profiles col-7"
     onDragStart={onDragStart}
     onDragOver={onDragOver}
     onDrop={onDrop}
+    onDragEnd={onDragEnd}
   >
     <h3 className="mb-3 p-2 pl-4 border rounded ">Избранные</h3>
-    <ul className="Chosen-profiles__profiles list-group p-0 border rounded">
-      {/* {
-        !chosenProfiles.length && <li className="list-group-item">Добавьте избранных пользователей</li>
-      } */}
-      {!!chosenProfiles.length &&
+    <ul
+      className={`Chosen-profiles__profiles list-group p-0 border rounded ${
+        isHighlightedList && 'Chosen-profiles__profiles_highlight'
+      }`}
+    >
+      {!chosenProfiles.length && (
+        <li className="list-group-item text-center">
+          Добавьте избранных пользователей.
+        </li>
+      )}
+      {Boolean(chosenProfiles.length) &&
         chosenProfiles.map((profile) => (
           <li
-            className="list-group-item d-flex justify-content-between"
+            className="list-group-item d-flex justify-content-between show-new-item"
             data-id={profile.login.uuid}
             key={profile.login.uuid}
             draggable

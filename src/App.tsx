@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import {
@@ -22,6 +22,7 @@ const App: React.FC = () => {
     error,
   } = useTypedSelector((state) => state.profiles);
   const dragItem = useRef<string | null>(null);
+  const [isHighlightedList, setIsHighlightedList] = useState(false);
 
   useEffect(() => {
     dispatch(fetchProfiles());
@@ -40,7 +41,7 @@ const App: React.FC = () => {
           return dispatch(replaceChosenProfile(dragItem.current, dropId));
         }
 
-        dispatch(addChosenProfile(dragItem.current));
+        dispatch(addChosenProfile(dragItem.current, dropId || ''));
       }
     },
     [dispatch, chosenProfiles]
@@ -53,9 +54,13 @@ const App: React.FC = () => {
           'li'
         )!.dataset.id!;
       }
+
+      setIsHighlightedList(true);
     },
     []
   );
+
+  const dragEndHandler = useCallback(() => setIsHighlightedList(false), []);
 
   const dragOverHandler = useCallback(
     (event: React.DragEvent<HTMLDivElement>) => {
@@ -81,13 +86,16 @@ const App: React.FC = () => {
             <ProfileList
               displayedProfiles={displayedProfiles}
               onDragStart={dragStartHandler}
+              onDragEnd={dragEndHandler}
             />
             <ChosenProfiles
               onDragStart={dragStartHandler}
               onDragOver={dragOverHandler}
               onDrop={dropHandler}
+              onDragEnd={dragEndHandler}
               chosenProfiles={chosenProfiles}
               onDeleteProfile={deleteProfileHandler}
+              isHighlightedList={isHighlightedList}
             />
           </div>
         )}

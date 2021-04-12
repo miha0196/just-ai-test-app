@@ -7,11 +7,13 @@
 .Chosen-profiles .Chosen-profiles__profiles {
   height: calc(100vh - 3rem - 52px);
   overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .Chosen-profiles .Chosen-profiles__avatar {
   height: 70px;
   width: 70px;
+  user-select: none;
 }
 
 .Chosen-profiles .Chosen-profiles__delete-img {
@@ -29,6 +31,25 @@
   user-select: none;
 }
 
-.highlight {
-  background-color: red;
+.text-highlight {
+  background-color:  yellow;
+}
+
+.Chosen-profiles .Chosen-profiles__profiles_highlight {
+  box-shadow: 0 0 0 1000px rgba(100, 100, 100, .4);
+}
+
+@keyframes show {
+  0% {
+    transform: scale(.8);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.show-new-item {
+  transform: scale(1);
+  animation: show .3s 1 forwards;
 }
